@@ -1,117 +1,177 @@
 #include <stdio.h>
 
-int palindrome(char input[]);
+// Function declarations
+int pallindrome(char input[]);
 void copy(char input[], char output[]);
 int stringlength(char input[]);
 void substring(char input[]);
-void reverse(char input[], char output[]);
+void reverse(char input[]);
 
 int main()
 {
-    char str[10], output[10];
-    int ch, c, len, z;
-    printf("Enter The String: ");
-    scanf("%9s", str);
-    printf("\n1. Palindrome \n2. Copy \n3.Substring \n4. String Length \n5.Reverse ");
-    printf("\nEnter your choice: ");
+    int ch;
+    char str[50];
+    char output[50];
+
+    // Taking string from user
+    printf("Enter a string: ");
+    scanf("%49s", str);
+
+    // Display menu
+    printf("\nChoose an Operation:\n");
+    printf("1. Check Palindrome\n");
+    printf("2. Copy String\n");
+    printf("3. Check String Length\n");
+    printf("4. Substring\n");
+    printf("5. Reverse String\n");
+
+    // Taking choice from user
+    printf("Enter your choice: ");
     scanf("%d", &ch);
+
+    // Perform operation according to choice
     switch(ch)
     {
         case 1:
-            c = palindrome(str);
+        {
+            // Check palindrome
+            int c = pallindrome(str);
 
             if(c == 1)
-            {
-                printf("The string is palindrome");
-            }
+                printf("Palindrome\n");
             else
-            {
-                printf("The string is not a palindrome");
-            }
+                printf("Not a Palindrome\n");
+
             break;
+        }
+
         case 2:
+            // Copy string
             copy(str, output);
-            printf("Copied String = %s\n", output);
             break;
+
         case 3:
-        substring(str);
- 
-        break;
-        case 4:
-            len = stringlength(str);
-            printf("Length = %d\n", len);
+            // Find string length
+            printf("String length is: %d\n", stringlength(str));
             break;
-          case 5:
-    reverse(str, output);
-  
-    break;
+
+        case 4:
+            // Find substring
+            substring(str);
+            break;
+
+        case 5:
+            // Reverse the string
+            reverse(str);
+            break;
+
         default:
-            printf("Invalid Choice");
+            // If wrong choice is entered
+            printf("Invalid choice\n");
     }
+
     return 0;
 }
-int palindrome(char input[])
+
+// Function to find length of string
+int stringlength(char input[])
 {
-    int i = 0, j = 0;
-    while(input[j] != '\0')
+    int i = 0;
+
+    // Count characters until null character
+    while(input[i] != '\0')
     {
-        j++;
+        i++;
     }
-    j--;
+
+    return i;
+}
+
+// Function to check palindrome
+int pallindrome(char input[])
+{
+    int i = 0;
+    int j = stringlength(input) - 1;
+
+    // Compare characters from both ends
     while(i < j)
     {
         if(input[i] != input[j])
         {
             return 0;
         }
+
         i++;
         j--;
     }
+
     return 1;
 }
 
+// Function to copy one string into another
 void copy(char input[], char output[])
 {
     int i;
 
+    // Copy characters one by one
     for(i = 0; input[i] != '\0'; i++)
     {
         output[i] = input[i];
     }
+
+    // Add null character at end
     output[i] = '\0';
+
+    printf("Output string is: %s\n", output);
 }
 
-int stringlength(char input[])
+// Function to find substring
+void substring(char input[])
 {
-    int i = 0;
-    while(input[i] != '\0')
+    int i, position;
+    char output[50];
+
+    int n = stringlength(input);
+
+    // Taking starting position
+    printf("Enter the position of substring: ");
+    scanf("%d", &position);
+
+    // Check whether position is valid
+    if(position >= 0 && position < n)
     {
-        i++;
-    }
-    return i;
-}
- void substring(char input[]) {
-    int n, i = 0, p;
-    char output[10];
-    printf("Enter Substring Position: ");
-    scanf("%d", &p);
-    n = stringlength(input);
-    if (p < n) {
-        for (i = 0; p + i < n; i++) {
-            output[i] = input[p + i];
+        // Copy substring from given position
+        for(i = 0; i < n - position; i++)
+        {
+            output[i] = input[position + i];
         }
+
         output[i] = '\0';
-        printf("The Substring is: %s\n", output);
-    } else {
-        printf("Invalid Position\n");
+
+        printf("Input string: %s\n", input);
+        printf("Output substring: %s\n", output);
+    }
+    else
+    {
+        printf("Position entered is out of range\n");
     }
 }
 
-void reverse(char input[], char output[]){
-    int i, n = stringlength(input);
-    for(i = 0; i < n; i++){
-        output[i] = input[n-1-i];
-        
+// Function to reverse string
+void reverse(char input[])
+{
+    int i;
+    int n = stringlength(input);
+    char output[50];
+
+    // Store characters in reverse order
+    for(i = 0; i < n; i++)
+    {
+        output[n - 1 - i] = input[i];
     }
-    printf("Reversed: %s", output);
+
+    output[n] = '\0';
+
+    printf("Input string: %s\n", input);
+    printf("Output (reversed) String: %s\n", output);
 }
