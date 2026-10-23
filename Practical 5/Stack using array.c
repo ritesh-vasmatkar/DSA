@@ -49,6 +49,7 @@ int main()
     do
     {
         printf("\n1.Push  2.Pop  3.Display  4.Exit\n");
+        printf("Enter choice: ");
         scanf("%d", &ch);
 
         switch (ch)
